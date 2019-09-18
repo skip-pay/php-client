@@ -1,0 +1,9 @@
+<?php
+
+// Your MALLPay api user
+$mallPayUser = '';
+// Your MALLPay api password
+$mallPayPass = '';
+
+$mallPayUrl = 'https://api.partner.mallyna.cz'; // test api 
+//$mallPayUrl = 'https://api.partner.mallpay.cz'; // production api
