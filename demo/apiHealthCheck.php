@@ -34,7 +34,6 @@ if (isset($_REQUEST["call"])) {
         echo "result:<p/><pre>";
         print_r($responseData);
         echo "</pre>";
-
     } catch (Exception $e) {
         echo "exception: " . get_class($e) . "<p/><pre>";
         echo "status: " . $e->getResponse()->getStatusCode() . "<p/>";

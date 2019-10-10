@@ -4,6 +4,7 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+
 $logger = new Logger('MallPayTestApp');
 $logger->pushHandler(new StreamHandler(__DIR__ . '/app.log', Logger::DEBUG));
 
@@ -18,5 +19,3 @@ echo "URL: $thisUrl<p/>";
 echo 'Now you should call <a href="getApplicationDetail.php">getApplicationDetail</a><p/>';
 echo '<p/><a href="index.php">back</a>';
 echo "<html><body>";
-
-

@@ -15,11 +15,12 @@ use GuzzleHttp\HandlerStack;
  * The response data are converted from json to php associative array.
  * @package MallPayLib
  */
-class MallPayClient {
-	private $apiUsername;
-	private $apiPassword;
-	private $accessToken;
-	private $client;
+class MallPayClient
+{
+    private $apiUsername;
+    private $apiPassword;
+    private $accessToken;
+    private $client;
     private $logger;
 
     /**
@@ -29,7 +30,8 @@ class MallPayClient {
      * @param string $apiUrl
      * @param \Psr\Log\LoggerInterface $logger
      */
-	function __construct($apiUsername, $apiPassword, $apiUrl, $logger) {
+    public function __construct($apiUsername, $apiPassword, $apiUrl, $logger)
+    {
         $this->apiUsername = $apiUsername;
         $this->apiPassword = $apiPassword;
         $this->logger = $logger;
@@ -44,24 +46,26 @@ class MallPayClient {
             );
         }
         $this->client = new Client(['base_uri'=>$apiUrl, 'handler' => $stack,/*, 'verify' => false*/ /*, 'proxy' => 'tcp://localhost:8888'*/]);
-	}
+    }
 
     /**
      * Log in using the credentials from constructor
      */
-	function login() {
-		$data = array('username' => $this->apiUsername, 'password' => $this->apiPassword);
-		$response = $this->callApi('POST', '/authentication/v1/partner', $data);
-		$this->accessToken = $response['accessToken'];
-	}
+    public function login()
+    {
+        $data = array('username' => $this->apiUsername, 'password' => $this->apiPassword);
+        $response = $this->callApi('POST', '/authentication/v1/partner', $data);
+        $this->accessToken = $response['accessToken'];
+    }
 
     /**
      * @param array $data
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function createApplication($data) {
-	    return $this->callApi('POST', '/financing/v1/applications', $data);
+    public function createApplication($data)
+    {
+        return $this->callApi('POST', '/financing/v1/applications', $data);
     }
 
     /**
@@ -69,7 +73,8 @@ class MallPayClient {
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function getApplicationDetail($applicationId) {
+    public function getApplicationDetail($applicationId)
+    {
         return $this->callApi('GET', '/financing/v1/applications/' . $applicationId);
     }
 
@@ -79,7 +84,8 @@ class MallPayClient {
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function cancelApplication($applicationId, $data) {
+    public function cancelApplication($applicationId, $data)
+    {
         return $this->callApi('PUT', '/financing/v1/applications/' . $applicationId . '/cancel', $data);
     }
 
@@ -89,7 +95,8 @@ class MallPayClient {
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function changeApplicationOrder($applicationId, $data) {
+    public function changeApplicationOrder($applicationId, $data)
+    {
         return $this->callApi('PUT', '/financing/v1/applications/' . $applicationId . '/order', $data);
     }
 
@@ -99,7 +106,8 @@ class MallPayClient {
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function markOrderItemsAsCancelled($applicationId, $data) {
+    public function markOrderItemsAsCancelled($applicationId, $data)
+    {
         return $this->callApi('PUT', '/financing/v1/applications/' . $applicationId . '/order/cancel', $data);
     }
 
@@ -109,7 +117,8 @@ class MallPayClient {
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function markOrderItemsAsSent($applicationId, $data) {
+    public function markOrderItemsAsSent($applicationId, $data)
+    {
         return $this->callApi('PUT', '/financing/v1/applications/' . $applicationId . '/order/send', $data);
     }
 
@@ -119,7 +128,8 @@ class MallPayClient {
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function markOrderItemsAsDelivered($applicationId, $data) {
+    public function markOrderItemsAsDelivered($applicationId, $data)
+    {
         return $this->callApi('PUT', '/financing/v1/applications/' . $applicationId . '/order/deliver', $data);
     }
 
@@ -129,7 +139,8 @@ class MallPayClient {
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function markOrderItemsAsReturned($applicationId, $data) {
+    public function markOrderItemsAsReturned($applicationId, $data)
+    {
         return $this->callApi('PUT', '/financing/v1/applications/' . $applicationId . '/order/return', $data);
     }
 
@@ -137,14 +148,17 @@ class MallPayClient {
      * @param array $data
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
-     */    function precheck($data) {
+     */
+    public function precheck($data)
+    {
         return $this->callApi('POST', '/financing/v1/precheck', $data);
     }
 
     /**
      * @return array
      */
-    function apiHealthCheck() {
+    public function apiHealthCheck()
+    {
         return $this->callApi('GET', '/v1/health');
     }
 
@@ -157,14 +171,15 @@ class MallPayClient {
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected function callApi($method, $endpoint, $data = null) {
-	    $headers = ['Accept' => 'application/json'];
-	    if ($this->accessToken != null) {
+    protected function callApi($method, $endpoint, $data = null)
+    {
+        $headers = ['Accept' => 'application/json'];
+        if ($this->accessToken != null) {
             $headers += ['Authorization' => 'Bearer ' . $this->accessToken];
         }
         $options = ['headers' => $headers];
-	    if ($method != 'GET' && empty($data)) {
-	        $data = new \stdClass(); // at least empty json class is required
+        if ($method != 'GET' && empty($data)) {
+            $data = new \stdClass(); // at least empty json class is required
         }
         if ($data != null) {
             $options['json'] = $data;
@@ -174,9 +189,10 @@ class MallPayClient {
             $response = $this->client->request($method, $endpoint, $options);
             return json_decode($response->getBody(), true);
         } catch (Exception $e) {
-            if ($this->logger != null) $this->logger->notice(get_class($this) . ' ' . $e->getMessage());
+            if ($this->logger != null) {
+                $this->logger->notice(get_class($this) . ' ' . $e->getMessage());
+            }
             throw $e;
         }
-	}
+    }
 }
-

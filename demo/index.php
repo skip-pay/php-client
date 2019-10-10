@@ -10,7 +10,7 @@ All communication with MallPay is logged in app.log file.<p/>
 
 <?php
 if (!file_exists('config.php')) {
-	echo "<p>The configuration file config.php is missing. Please, create one from config.php.example</p>";
+    echo "<p>The configuration file config.php is missing. Please, create one from config.php.example</p>";
 }
 ?>
 

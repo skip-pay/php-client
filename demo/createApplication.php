@@ -112,29 +112,28 @@ if (isset($_REQUEST["call"])) {
 
 
 
-		echo "requestData: <p/>";
-		echo "<pre>".print_r($requestData, true)."</pre><hr>";
-		
-		$mallPay = new MallPayClient($mallPayUser, $mallPayPass, $mallPayUrl, $logger);
-		$mallPay->login();
+        echo "requestData: <p/>";
+        echo "<pre>".print_r($requestData, true)."</pre><hr>";
+        
+        $mallPay = new MallPayClient($mallPayUser, $mallPayPass, $mallPayUrl, $logger);
+        $mallPay->login();
 
         $responseData = $mallPay->createApplication($requestData);
-		$applicationId = $responseData['id'];
+        $applicationId = $responseData['id'];
 
-		echo "<hr/>";
-		echo "Result summary<p/>";
-		echo "applicationId = $applicationId<br/>";
-		echo "applicationState = ".$responseData['state']."<br/>";
-		echo "applicationStateReason = ".$responseData['stateReason']."<br/>";
-		echo "gatewayRedirectUrl = <a href='" . $responseData["gatewayRedirectUrl"] . "'>" . $responseData["gatewayRedirectUrl"] . "</a><br/>";
+        echo "<hr/>";
+        echo "Result summary<p/>";
+        echo "applicationId = $applicationId<br/>";
+        echo "applicationState = ".$responseData['state']."<br/>";
+        echo "applicationStateReason = ".$responseData['stateReason']."<br/>";
+        echo "gatewayRedirectUrl = <a href='" . $responseData["gatewayRedirectUrl"] . "'>" . $responseData["gatewayRedirectUrl"] . "</a><br/>";
 
-		echo "<hr/>";
+        echo "<hr/>";
         echo "result:<p/><pre>";
         print_r($responseData);
         echo "</pre>";
 
-		$_SESSION['applicationId'] = $applicationId;
-
+        $_SESSION['applicationId'] = $applicationId;
     } catch (Exception $e) {
         echo "exception: " . get_class($e) . "<p/><pre>";
         echo "status: " . $e->getResponse()->getStatusCode() . "<p/>";

@@ -28,7 +28,6 @@ applicationId: <input name="applicationId" type="text" value="<?php echo isset($
 
 <?php
 if (isset($_REQUEST["applicationId"])) {
-
     $applicationId = $_REQUEST['applicationId'];
 
     try {
@@ -51,7 +50,6 @@ if (isset($_REQUEST["applicationId"])) {
         echo "</pre>";
 
         $_SESSION['applicationId'] = $applicationId;
-
     } catch (Exception $e) {
         echo "exception: " . get_class($e) . "<p/><pre>";
         echo "status: " . $e->getResponse()->getStatusCode() . "<p/>";
