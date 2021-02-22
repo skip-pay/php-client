@@ -32,5 +32,5 @@ The demo can handle also the notifications from MALLPay. To test the notificatio
 
 Composer installation
 ---------------
-* Run `composer config repositories.mall-pay vcs git@github.com:iki-cz/php-client.git`
+* Run `composer config repositories.mall-pay vcs git@github.com:mall-pay/php-client.git`
 * Run `composer require mall-pay/php-client:dev-master`
