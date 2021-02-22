@@ -30,4 +30,7 @@ Getting started
 
 The demo can handle also the notifications from MALLPay. To test the notifications, the demo has to run on a public internet domain, not on localhost.   
 
-
+Composer installation
+---------------
+* Run `composer config repositories.mall-pay vcs git@github.com:iki-cz/php-client.git`
+* Run `composer require mall-pay/php-client:dev-master`
