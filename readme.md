@@ -1,7 +1,7 @@
-MallPayLib, PHP MALLPay API client
+MallPayLib, PHP Skip Pay API client
 ==============================
-MallPayLib is a PHP MALLPay API client that makes it easy to use MALLPay payment gateway.
-* It implements most of the API methods from MALLPay API, see https://mallpayapi.docs.apiary.io
+MallPayLib is a PHP MALLPay API client that makes it easy to use Skip Pay payment gateway.
+* It implements most of the API methods from Skip Pay API, see https://skippayapi.docs.apiary.io
 * The input and output JSON for the API calls converted to and from the associative arrays.
 * It includes a demo scripts
  
@@ -9,8 +9,8 @@ The Demo
 --------
 Included demo illustrates use of MallPayLib\MallPayClient class with sample data.
 
-* The particular MALLPay API calls are demonstrated in respective php files.
-* The responses from MALLPay gateway are handled by files reply.php and notify.php.
+* The particular Skip Pay API calls are demonstrated in respective php files.
+* The responses from Skip Pay gateway are handled by files reply.php and notify.php.
 * All communication is logged in a log file.<p/>
  
 Getting started
